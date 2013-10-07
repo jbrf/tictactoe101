@@ -32,7 +32,7 @@ public class Program
             MyBoard.CheckWinner();
             if (MyBoard.Winner) break;
             Player2.MakeMove();
-            if (!MyBoard.SpaceLeft() || MyBoard.Winner) break;
+            if (!MyBoard.SpaceLeft()) break;
             MyBoard.CheckWinner();
             if (MyBoard.Winner) break;
 
@@ -108,6 +108,11 @@ public class Board
     {
         if (position > 9 || position < 1 || Memory[position - 1] != " ")
         {
+           // Console.SetCursorPosition().Writeline();
+            Console.SetCursorPosition(11, 19);
+            Console.WriteLine("Den platsen är upptagen eller \n");
+            Console.SetCursorPosition(11, 20);
+            Console.WriteLine("för stor, välj en annan plats");
             return false;
         }
 
@@ -169,17 +174,16 @@ public class Board
 public class Player
 {
     // Let's the player place hen's markertype
-    public bool MakeMove()
+    public void MakeMove()
     {
-        int pos = 0;
+        int position = 0;
         do
         {
-            int.TryParse(Console.ReadKey().KeyChar.ToString(), out pos);
+            int.TryParse(Console.ReadKey().KeyChar.ToString(), out position);
             MyBoard.DrawBoard();
         }
-        while (!MyBoard.PlaceMarker(pos, MarkerType));
-        return MakeMove();
-        //MyBoard.DrawBoard();
+        while (!MyBoard.PlaceMarker(position, MarkerType));
+        MyBoard.DrawBoard();
     }
 
     public string Name { get; set; }
@@ -208,7 +212,7 @@ public class Bot : Player
     public Bot(string name, string markertype, Board myboard)
         : base (name,markertype,myboard)    {  }
     
-    public bool MakeMove()
+    public void MakeMove()
     {
         Random random = new Random();
         int pos = 0;
@@ -217,7 +221,7 @@ public class Bot : Player
         {
             pos = random.Next(1, 10);
         }
-        return base.MakeMove();
+        base.MakeMove();
        
     }
 
