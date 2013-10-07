@@ -46,19 +46,19 @@ public class Board
     {
         Console.Clear();
         Console.WriteLine(
-            "-------\n" +
-            "|" + Memory[0] + "|" + Memory[1] + "|" + Memory[2] + "|\n" +
-             "-------\n" +
-            "|" + Memory[3] + "|" + Memory[4] + "|" + Memory[5] + "|\n" +
-             "-------\n" +
-            "|" + Memory[6] + "|" + Memory[7] + "|" + Memory[8] + "|\n" +
-             "-------\n"             
+            "-------------\n" +
+            "| " + Memory[0] + " | " + Memory[1] + " | " + Memory[2] + " |\n" +
+             "-------------\n" +
+            "| " + Memory[3] + " | " + Memory[4] + " | " + Memory[5] + " |\n" +
+             "-------------\n" +
+            "| " + Memory[6] + " | " + Memory[7] + " | " + Memory[8] + " |\n" +
+             "-------------\n"             
         );
     }
     public string[] Memory {get;set;}
     public Board()
-    { 
-        Memory = new string[] { " ", " ", " ", " ", " ", " ", " ", " ", " " };
+    {
+        Memory = new string[]{ " ", " ", " ", " ", " ", " ", " ", " ", " " };
     }
 
     public bool PlaceMarker(int position, string markerType)
