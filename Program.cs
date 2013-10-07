@@ -30,7 +30,11 @@ public class Program
             Player1.MakeMove();            
             if(!MyBoard.SpaceLeft()) break;
             MyBoard.CheckWinner();
+            if (MyBoard.Winner) break;
             Player2.MakeMove();
+            if (!MyBoard.SpaceLeft() || MyBoard.Winner) break;
+            MyBoard.CheckWinner();
+            if (MyBoard.Winner) break;
         
         }
     }
@@ -83,6 +87,8 @@ public class Board
      
     public Player PlayerX { get; set; }
     public Player PlayerO { get; set; }
+
+    public bool Winner { get; set; }
     
     // Creates a board as an string array
     public Board()
@@ -118,34 +124,42 @@ public class Board
             if (Memory[0] == markerType && Memory[1] == markerType && Memory[2] == markerType)
             {
                 Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Winner = true;
             }
             if (Memory[3] == markerType && Memory[4] == markerType && Memory[5] == markerType)
             {
                 Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Winner = true;
             }
             if (Memory[6] == markerType && Memory[7] == markerType && Memory[8] == markerType)
             {
                 Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Winner = true;
             }
             if (Memory[0] == markerType && Memory[3] == markerType && Memory[6] == markerType)
             {
                 Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Winner = true;
             }
             if (Memory[1] == markerType && Memory[4] == markerType && Memory[7] == markerType)
             {
                 Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Winner = true;
             }
             if (Memory[2] == markerType && Memory[5] == markerType && Memory[8] == markerType)
             {
                 Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Winner = true;
             }
             if (Memory[0] == markerType && Memory[4] == markerType && Memory[8] == markerType)
             {
                 Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Winner = true;
             }
             if (Memory[2] == markerType && Memory[4] == markerType && Memory[6] == markerType)
             {
                 Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Winner = true;
             }
         }
     }
