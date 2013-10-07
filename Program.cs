@@ -20,6 +20,7 @@ public class Program
         {
             Player1.MakeMove();            
             if(!MyBoard.SpaceLeft()) break;
+            MyBoard.CheckWinner();
             Player2.MakeMove();
         
         }
@@ -64,6 +65,9 @@ public class Board
         );
     }
     public string[] Memory {get;set;}
+    public Player PlayerX { get; set; }
+    public Player PlayerO { get; set; }
+
     public Board()
     {
         Memory = new string[]{ " ", " ", " ", " ", " ", " ", " ", " ", " " };
@@ -83,6 +87,17 @@ public class Board
 
         return true;
     }
+    public void CheckWinner()
+    {
+        foreach (string markerType in new[] { "X", "O" })
+        {
+            if (Memory[0] == markerType && Memory[1] == markerType && Memory[2] == markerType)
+            {
+                Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                break;
+            }
+        }
+    }
    
 } 
 public class Player
@@ -100,10 +115,7 @@ public class Player
         while (!MyBoard.PlaceMarker(pos, MarkerType));
         MyBoard.DrawBoard();
     }
-    public void PlayerTurn() 
-    {
-        
-    }
+   
     public string Name { get; set; }
     public string MarkerType { get; set; }
     public Board MyBoard { get; set; }
@@ -112,6 +124,14 @@ public class Player
         Name = name;
         MarkerType = markerType;
         MyBoard = myboard;
+        if (MarkerType == "X")
+        {
+            MyBoard.PlayerX = this;
+        }
+        else 
+        { 
+            MyBoard.PlayerO = this; 
+        }
         
     }
     
