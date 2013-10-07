@@ -9,15 +9,22 @@ public class Program
 {
     static void Main()
     {
+        Console.SetWindowSize(50, 25);
+        Console.SetBufferSize(50, 25);
         string [] Names = UserGreeting.AskNames();
         Board MyBoard = new Board();
         Player Player1 = new Player(Names[0], "X", MyBoard);
         Player Player2 = new Player(Names[1], "O", MyBoard);
         MyBoard.DrawBoard();
-        Player1.MakeMove();
-        MyBoard.DrawBoard();
-        Player2.MakeMove();
-        MyBoard.DrawBoard();
+        while (MyBoard.SpaceLeft())
+        {
+            Player1.MakeMove();            
+            if(!MyBoard.SpaceLeft()) break;
+            Player2.MakeMove();
+        
+        }
+        
+        
         
        
        
@@ -45,14 +52,15 @@ public class Board
     public void DrawBoard()
     {
         Console.Clear();
+        Console.SetCursorPosition(0, 8);
         Console.WriteLine(
-            "-------------\n" +
-            "| " + Memory[0] + " | " + Memory[1] + " | " + Memory[2] + " |\n" +
-             "-------------\n" +
-            "| " + Memory[3] + " | " + Memory[4] + " | " + Memory[5] + " |\n" +
-             "-------------\n" +
-            "| " + Memory[6] + " | " + Memory[7] + " | " + Memory[8] + " |\n" +
-             "-------------\n"             
+            "                   -------------\n" +
+            "                   | " + Memory[0] + " | " + Memory[1] + " | " + Memory[2] + " |\n" +
+            "                   -------------\n" +
+            "                   | " + Memory[3] + " | " + Memory[4] + " | " + Memory[5] + " |\n" +
+            "                   -------------\n" +
+            "                   | " + Memory[6] + " | " + Memory[7] + " | " + Memory[8] + " |\n" +
+            "                   -------------\n"             
         );
     }
     public string[] Memory {get;set;}
@@ -60,7 +68,10 @@ public class Board
     {
         Memory = new string[]{ " ", " ", " ", " ", " ", " ", " ", " ", " " };
     }
-
+    public bool SpaceLeft() 
+    {
+        return Memory.Contains(" ");
+    }
     public bool PlaceMarker(int position, string markerType)
     {
         if (position > 9 || position < 1 || Memory[position - 1] != " ")
@@ -78,14 +89,20 @@ public class Player
 {
     public void MakeMove()
     {
+        
         int pos = 0;
         do
         {
             int.TryParse(Console.ReadKey().KeyChar.ToString(), out pos);
+            MyBoard.DrawBoard();
+            
         }
-        while (pos < 1 || pos > 9);
-        MyBoard.PlaceMarker(pos, MarkerType);
-  
+        while (!MyBoard.PlaceMarker(pos, MarkerType));
+        MyBoard.DrawBoard();
+    }
+    public void PlayerTurn() 
+    {
+        
     }
     public string Name { get; set; }
     public string MarkerType { get; set; }
