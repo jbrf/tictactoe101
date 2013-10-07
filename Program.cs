@@ -9,29 +9,32 @@ public class Program
 {
     static void Main()
     {
-
-        Player Player1 = new Player("Johan", "X");
-        Player Player2 = new Player("Comp", "O");
+        string [] Names = UserGreeting.AskNames();
         Board MyBoard = new Board();
+        Player Player1 = new Player(Names[0], "X", MyBoard);
+        Player Player2 = new Player(Names[1], "O", MyBoard);
+        MyBoard.DrawBoard();
+        Player1.MakeMove();
+        MyBoard.DrawBoard();
+        Player2.MakeMove();
+        MyBoard.DrawBoard();
         
        
-        MyBoard.DrawBoard();
+       
     }
 }
 public class UserGreeting
 {
-    public string Welcome()
+    public static string [] AskNames()
     {
-        string Player1;
-        string Player2;
+        string [] PlayerName = new string[2];
         Console.WriteLine("Välkommen till Tac Tac Toe");
         Console.WriteLine("Vad heter du? : ");
-        Player1 = Console.ReadLine();
+        PlayerName [0] = Console.ReadLine();
         Console.WriteLine("Vad heter din medspelare? : ");
-        Player2 = Console.ReadLine();
-
-        return Player1;
-        Player2;
+        PlayerName [1] = Console.ReadLine();
+        return PlayerName;
+       
 
     }
 
@@ -41,6 +44,7 @@ public class Board
 {
     public void DrawBoard()
     {
+        Console.Clear();
         Console.WriteLine(
             "-------\n" +
             "|" + Memory[0] + "|" + Memory[1] + "|" + Memory[2] + "|\n" +
@@ -72,12 +76,25 @@ public class Board
 } 
 public class Player
 {
+    public void MakeMove()
+    {
+        int pos = 0;
+        do
+        {
+            int.TryParse(Console.ReadKey().KeyChar.ToString(), out pos);
+        }
+        while (pos < 1 || pos > 9);
+        MyBoard.PlaceMarker(pos, MarkerType);
+  
+    }
     public string Name { get; set; }
     public string MarkerType { get; set; }
-    public Player(string name, string markerType)
+    public Board MyBoard { get; set; }
+    public Player(string name, string markerType, Board myboard)
     {
         Name = name;
         MarkerType = markerType;
+        MyBoard = myboard;
         
     }
     
