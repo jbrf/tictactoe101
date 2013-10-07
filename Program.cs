@@ -14,7 +14,7 @@ public class Program
         Console.SetBufferSize(50, 26);
 
         // Starts off by sending players to UserGreeting.AskNames method, saving playernames in a string array
-        string [] Names = UserGreeting.AskNames();
+        string[] Names = UserGreeting.AskNames();
 
         // Creates a new board
         Board MyBoard = new Board();
@@ -27,15 +27,15 @@ public class Program
         MyBoard.DrawBoard();
         while (MyBoard.SpaceLeft())
         {
-            Player1.MakeMove();            
-            if(!MyBoard.SpaceLeft()) break;
+            Player1.MakeMove();
+            if (!MyBoard.SpaceLeft()) break;
             MyBoard.CheckWinner();
             if (MyBoard.Winner) break;
             Player2.MakeMove();
             if (!MyBoard.SpaceLeft() || MyBoard.Winner) break;
             MyBoard.CheckWinner();
             if (MyBoard.Winner) break;
-        
+
         }
     }
 }
@@ -43,18 +43,18 @@ public class Program
 public class UserGreeting
 {
     // Welcomes the player and ask of hen's name
-    public static string [] AskNames()
+    public static string[] AskNames()
     {
-        string [] PlayerName = new string[2];
+        string[] PlayerName = new string[2];
         Console.SetCursorPosition(12, 8);
         Console.WriteLine("Välkommen till Tac Tac Toe\n\n");
         Console.SetCursorPosition(18, 9);
         Console.Write("Vad heter du? \n");
-        PlayerName [0] = Console.ReadLine();
+        PlayerName[0] = Console.ReadLine();
         Console.Clear();
         Console.SetCursorPosition(12, 8);
         Console.WriteLine("Vad heter din medspelare? ");
-        PlayerName [1] = Console.ReadLine();
+        PlayerName[1] = Console.ReadLine();
         return PlayerName;
     }
 }
@@ -73,31 +73,31 @@ public class Board
             "                   | " + Memory[3] + " | " + Memory[4] + " | " + Memory[5] + " |\n" +
             "                   -------------\n" +
             "                   | " + Memory[0] + " | " + Memory[1] + " | " + Memory[2] + " |\n" +
-            "                   -------------\n\n\n"              
-       
-            
+            "                   -------------\n\n\n"
+
+
             );
-        Console.SetCursorPosition(13,16);
+        Console.SetCursorPosition(13, 16);
         Console.WriteLine("Choose with 1-9 where you");
         Console.SetCursorPosition(13, 17);
-        Console.WriteLine("want to place your marker");
+        Console.WriteLine("want to place your marker\n");
     }
 
-    public string[] Memory {get;set;}
-     
+    public string[] Memory { get; set; }
+
     public Player PlayerX { get; set; }
     public Player PlayerO { get; set; }
 
     public bool Winner { get; set; }
-    
+
     // Creates a board as an string array
     public Board()
     {
-        Memory = new string[]{ " ", " ", " ", " ", " ", " ", " ", " ", " " };
+        Memory = new string[] { " ", " ", " ", " ", " ", " ", " ", " ", " " };
     }
 
     // Check to see if there's any "free" space to put a marker on
-    public bool SpaceLeft() 
+    public bool SpaceLeft()
     {
         return Memory.Contains(" ");
     }
@@ -123,53 +123,53 @@ public class Board
         {
             if (Memory[0] == markerType && Memory[1] == markerType && Memory[2] == markerType)
             {
-                Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Console.Write(markerType == "X" ? PlayerX.Name + " wins!\n\n" : PlayerO.Name + " wins!\n\n");
                 Winner = true;
             }
             if (Memory[3] == markerType && Memory[4] == markerType && Memory[5] == markerType)
             {
-                Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Console.Write(markerType == "X" ? PlayerX.Name + " wins!\n\n" : PlayerO.Name + " wins!\n\n");
                 Winner = true;
             }
             if (Memory[6] == markerType && Memory[7] == markerType && Memory[8] == markerType)
             {
-                Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Console.Write(markerType == "X" ? PlayerX.Name + " wins!\n\n" : PlayerO.Name + " wins!\n\n");
                 Winner = true;
             }
             if (Memory[0] == markerType && Memory[3] == markerType && Memory[6] == markerType)
             {
-                Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Console.Write(markerType == "X" ? PlayerX.Name + " wins!\n\n" : PlayerO.Name + " wins!\n\n");
                 Winner = true;
             }
             if (Memory[1] == markerType && Memory[4] == markerType && Memory[7] == markerType)
             {
-                Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Console.Write(markerType == "X" ? PlayerX.Name + " wins!\n\n" : PlayerO.Name + " wins!\n\n");
                 Winner = true;
             }
             if (Memory[2] == markerType && Memory[5] == markerType && Memory[8] == markerType)
             {
-                Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Console.Write(markerType == "X" ? PlayerX.Name + " wins!\n\n" : PlayerO.Name + " wins!\n\n");
                 Winner = true;
             }
             if (Memory[0] == markerType && Memory[4] == markerType && Memory[8] == markerType)
             {
-                Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Console.Write(markerType == "X" ? PlayerX.Name + " wins!\n\n" : PlayerO.Name + " wins!\n\n");
                 Winner = true;
             }
             if (Memory[2] == markerType && Memory[4] == markerType && Memory[6] == markerType)
             {
-                Console.Write(markerType == "X" ? PlayerX.Name + " wins!" : PlayerO.Name + " wins!");
+                Console.Write(markerType == "X" ? PlayerX.Name + " wins!\n\n" : PlayerO.Name + " wins!\n\n");
                 Winner = true;
             }
         }
     }
-   
-} 
+
+}
 
 public class Player
 {
     // Let's the player place hen's markertype
-    public void MakeMove()
+    public bool MakeMove()
     {
         int pos = 0;
         do
@@ -178,9 +178,10 @@ public class Player
             MyBoard.DrawBoard();
         }
         while (!MyBoard.PlaceMarker(pos, MarkerType));
-        MyBoard.DrawBoard();
+        return MakeMove();
+        //MyBoard.DrawBoard();
     }
-   
+
     public string Name { get; set; }
     public string MarkerType { get; set; }
     public Board MyBoard { get; set; }
@@ -195,9 +196,29 @@ public class Player
         {
             MyBoard.PlayerX = this;
         }
-        else 
-        { 
-            MyBoard.PlayerO = this; 
+        else
+        {
+            MyBoard.PlayerO = this;
         }
     }
+}
+
+public class Bot : Player
+{
+    public Bot(string name, string markertype, Board myboard)
+        : base (name,markertype,myboard)    {  }
+    
+    public bool MakeMove()
+    {
+        Random random = new Random();
+        int pos = 0;
+
+        while (!MyBoard.SpaceLeft())
+        {
+            pos = random.Next(1, 10);
+        }
+        return base.MakeMove();
+       
+    }
+
 }
